@@ -63,11 +63,17 @@ getElem("search-btn")[0].addEventListener("click", () => {
   const field = getElem("search-field");
   if (field[2] === "") {
     alert("Please Add Your Input Before Click The Button");
-    // else if(){
-
-    // }
   } else {
+    getElem("search-field")[0].value = "";
+    getElem("all-btn")[0].style.display = "block";
     getElem("result-section")[0].textContent = "";
     ApiUrl(field[2], null);
   }
+});
+
+// ======= All Items Handler ======
+getElem("all-btn")[0].addEventListener("click", () => {
+  getElem("404")[0].style.display = "none";
+  getElem("all-btn")[0].style.display = "none";
+  ApiUrl(null, null);
 });
