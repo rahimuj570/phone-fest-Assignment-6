@@ -161,8 +161,12 @@ const moreDetails = (data) => {
     );
     sensorLi.innerText = li;
     getElem("sensors")[0].appendChild(sensorLi);
+    if (scrollY > 100) {
+      getElem("details-section")[0].style.top = `${scrollY}px`;
+    } else if (scrollY < 100) {
+      getElem("details-section")[0].style.top = `${scrollY + 185}px`;
+    }
   });
-  getElem("details-section")[0].style.top = "185px";
 
   // ======== Other Map Loop =========
   Object.entries(data?.others).map((keyValue) => {
