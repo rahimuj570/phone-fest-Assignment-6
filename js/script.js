@@ -133,6 +133,13 @@ const moreDetails = (data) => {
     <div id="other-section" class="shadow py-2 my-5">
       <h2 class="text-center text-2xl font-bold">Other Information</h2>
       
+      <div style="display: none" id="404-data">
+      <p class="mt-5 text-2xl text-red-500 text-center text-white text-semibold">
+        No Data Found!
+      </p>
+      <img class="sm:w-4/12 w-9/12 mx-auto" src="./404.png" alt="" />
+    </div>
+
     </div>
   </div>
   <div class="grid lg:mx-96">
@@ -169,22 +176,27 @@ const moreDetails = (data) => {
   });
 
   // ======== Other Map Loop =========
-  Object.entries(data?.others).map((keyValue) => {
-    const othersDiv = document.createElement("div");
-    othersDiv.classList.add(
-      "flex",
-      "mx-2",
-      "justify-left",
-      "bg-slate-100",
-      "rounded",
-      "my-3",
-      "py-3",
-      "px-2"
-    );
-    othersDiv.innerHTML = `<p class="font-semibold mr-3">${keyValue[0]}:</p>
+  if (data.others == undefined) {
+    getElem("404-data")[0].style.display = "block";
+    console.log("no data");
+  } else {
+    Object.entries(data?.others).map((keyValue) => {
+      const othersDiv = document.createElement("div");
+      othersDiv.classList.add(
+        "flex",
+        "mx-2",
+        "justify-left",
+        "bg-slate-100",
+        "rounded",
+        "my-3",
+        "py-3",
+        "px-2"
+      );
+      othersDiv.innerHTML = `<p class="font-semibold mr-3">${keyValue[0]}:</p>
         <p>${keyValue[1]}</p>`;
-    document.getElementById("other-section").appendChild(othersDiv);
-  });
+      document.getElementById("other-section").appendChild(othersDiv);
+    });
+  }
 };
 
 // ========= Close More Handler ======
