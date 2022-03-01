@@ -14,9 +14,6 @@ const ApiUrl = (isSearch, isId) => {
   } else if (isId !== null) {
     const url = `https://openapi.programming-hero.com/api/phone/${isId}`;
     return fetchMoreDetails(url);
-  } else {
-    const url = "https://openapi.programming-hero.com/api/phones";
-    return fetchApi(url);
   }
 };
 
@@ -35,7 +32,6 @@ const catchApi = (data, status) => {
     getElem("404")[0].style.display = "block";
   } else {
     data.map((info) => {
-      console.log(info);
       const div = document.createElement("div");
       div.classList.add = `sm:mx-4 mx-2 shadow sha bg-white sm:p-5 p-2 rounded`;
       div.innerHTML = `<div class="sm:mx-4 mx-2 shadow sha bg-white sm:p-5 p-2 rounded">
@@ -69,18 +65,10 @@ getElem("search-btn")[0].addEventListener("click", () => {
     field[0].focus();
   } else {
     getElem("search-field")[0].value = "";
-    getElem("all-btn")[0].style.display = "block";
     getElem("result-section")[0].textContent = "";
     getElem("404")[0].style.display = "none";
     ApiUrl(field[2], null);
   }
-});
-
-// ======= All Items Handler ======
-getElem("all-btn")[0].addEventListener("click", () => {
-  getElem("404")[0].style.display = "none";
-  getElem("all-btn")[0].style.display = "none";
-  ApiUrl(null, null);
 });
 
 // ====== Fetch More Data =======
@@ -97,7 +85,6 @@ const moreDetailsUrl = (slug) => {
 
 // ======= Catch More Data ========
 const moreDetails = (data) => {
-  console.log(data);
   const body = document.querySelector("#more-details");
   const modalDiv = document.createElement("div");
   modalDiv.classList.add("toggle-more");
@@ -143,44 +130,9 @@ const moreDetails = (data) => {
   <h2 class="text-center text-2xl font-bold">Sensors</h2>
   </ul>
     <!-- ============Other========== -->
-    <div class="shadow py-2 my-5">
+    <div id="other-section" class="shadow py-2 my-5">
       <h2 class="text-center text-2xl font-bold">Other Information</h2>
-      <div
-        class="flex mx-2 justify-left bg-slate-100 rounded my-3 py-3 px-2"
-      >
-        <p class="font-semibold mr-3">WLAN:</p>
-        <p>Wi-Fi 802.11 a/b/g/n/ac/6, dual-band, hotspot</p>
-      </div>
-      <div
-        class="flex mx-2 justify-left bg-slate-100 rounded my-3 py-3 px-2"
-      >
-        <p class="font-semibold mr-3">Bluetooth:</p>
-        <p>5.0, A2DP, LE</p>
-      </div>
-      <div
-        class="flex mx-2 justify-left bg-slate-100 rounded my-3 py-3 px-2"
-      >
-        <p class="font-semibold mr-3">GPS:</p>
-        <p>Yes, with A-GPS, GLONASS, GALILEO, BDS, QZSS</p>
-      </div>
-      <div
-        class="flex sm:mx-2 mx-1 justify-left bg-slate-100 rounded my-3 py-3 px-2"
-      >
-        <p class="font-semibold mr-3">NFC:</p>
-        <p>Yes</p>
-      </div>
-      <div
-        class="flex mx-2 justify-left bg-slate-100 rounded my-3 py-3 px-2"
-      >
-        <p class="font-semibold mr-3">Radio:</p>
-        <p>Yes</p>
-      </div>
-      <div
-        class="flex mx-2 justify-left bg-slate-100 rounded my-3 py-3 px-2"
-      >
-        <p class="font-semibold mr-3">USB:</p>
-        <p>Lightning, USB 2.0</p>
-      </div>
+      
     </div>
   </div>
   <div class="grid lg:mx-96">
@@ -193,9 +145,8 @@ const moreDetails = (data) => {
   </div>
 </div>`;
 
-  // const sensorUiClass = ;
+  // ======= Sensor Map Loop =========
   data.mainFeatures.sensors.map((li) => {
-    console.log(li);
     const sensorLi = document.createElement("li");
     sensorLi.classList.add(
       "bg-slate-100",
@@ -211,8 +162,25 @@ const moreDetails = (data) => {
     sensorLi.innerText = li;
     getElem("sensors")[0].appendChild(sensorLi);
   });
+  getElem("details-section")[0].style.top = "185px";
 
-  getElem("details-section")[0].style.top = "250px";
+  // ======== Other Map Loop =========
+  Object.entries(data?.others).map((keyValue) => {
+    const othersDiv = document.createElement("div");
+    othersDiv.classList.add(
+      "flex",
+      "mx-2",
+      "justify-left",
+      "bg-slate-100",
+      "rounded",
+      "my-3",
+      "py-3",
+      "px-2"
+    );
+    othersDiv.innerHTML = `<p class="font-semibold mr-3">${keyValue[0]}:</p>
+        <p>${keyValue[1]}</p>`;
+    document.getElementById("other-section").appendChild(othersDiv);
+  });
 };
 
 // ========= Close More Handler ======
