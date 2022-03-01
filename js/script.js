@@ -138,41 +138,10 @@ const moreDetails = (data) => {
   </div>
 
   <!-- ========Sensor + Other ========= -->
-  <div class="grid gap-3 grid-cols-1 sm:grid-cols-2">
-    <ul class="shadow py-2 my-5">
-      <h2 class="text-center text-2xl font-bold">Sensors</h2>
-    
-      <li
-        class="bg-slate-100 mx-1 sm:mx-2 font-semibold rounded my-3 py-3 px-2"
-      >
-        Face ID
-      </li>
-      <li
-        class="bg-slate-100 mx-1 sm:mx-2 font-semibold rounded my-3 py-3 px-2"
-      >
-        accelerometer
-      </li>
-      <li
-        class="bg-slate-100 mx-1 sm:mx-2 font-semibold rounded my-3 py-3 px-2"
-      >
-        gyro
-      </li>
-      <li
-        class="bg-slate-100 mx-1 sm:mx-2 font-semibold rounded my-3 py-3 px-2"
-      >
-        proximity
-      </li>
-      <li
-        class="bg-slate-100 mx-1 sm:mx-2 font-semibold rounded my-3 py-3 px-2"
-      >
-        Compass
-      </li>
-      <li
-        class="bg-slate-100 mx-1 sm:mx-2 font-semibold rounded my-3 py-3 px-2"
-      >
-        Barometer
-      </li>
-    </ul>
+  <div id="sensor-other" class="grid gap-3 grid-cols-1 sm:grid-cols-2">
+  <ul id="sensors" class="shadow py-2 my-5">
+  <h2 class="text-center text-2xl font-bold">Sensors</h2>
+  </ul>
     <!-- ============Other========== -->
     <div class="shadow py-2 my-5">
       <h2 class="text-center text-2xl font-bold">Other Information</h2>
@@ -223,6 +192,26 @@ const moreDetails = (data) => {
     </button>
   </div>
 </div>`;
+
+  // const sensorUiClass = ;
+  data.mainFeatures.sensors.map((li) => {
+    console.log(li);
+    const sensorLi = document.createElement("li");
+    sensorLi.classList.add(
+      "bg-slate-100",
+      "mx-1",
+      "sm:mx-2",
+      "font-semibold",
+      "rounded",
+      "my-3",
+      "py-3",
+      "px-2",
+      "capitalize"
+    );
+    sensorLi.innerText = li;
+    getElem("sensors")[0].appendChild(sensorLi);
+  });
+
   getElem("details-section")[0].style.top = "250px";
 };
 
