@@ -37,7 +37,7 @@ const catchApi = (data, status) => {
       div.classList.add = `sm:mx-4 mx-2 shadow sha bg-white sm:p-5 p-2 rounded`;
       div.innerHTML = `<div class="sm:mx-4 mx-2 shadow sha bg-white sm:p-5 p-2 rounded">
     <img
-      src="${info.imagee}"
+      src="${info.image}"
       alt="${info.phone_name}"
     />
 
@@ -74,6 +74,7 @@ getElem("search-btn")[0].addEventListener("click", () => {
 
 // ====== Fetch More Data =======
 const fetchMoreDetails = (url) => {
+  getElem("result-section")[0].style.opacity = ".1";
   fetch(url)
     .then((res) => res.json())
     .then((data) => moreDetails(data.data));
@@ -96,8 +97,13 @@ const moreDetails = (data) => {
   id="details-section"
   class="inset-x-0 shadow border-b-4 border-red-500 sm:mx-5 mx-3 bg-white p-2 rounded"
 >
-  <div class="flex justify-center">
-    <img width="320px" src="./404.png" alt="" />
+  <div class="relative flex justify-center">
+  <span
+  onclick="closeBtn()"
+  class="cursor-pointer absolute top-0 right-0 text-red-500 font-bold text-2xl"
+  >[X]</span
+>
+    <img width="320px" src="${data.image}" alt="" />
   </div>
   <div class="info text-center">
     <h1 class="text-2xl font-bold">${data.name}</h1>
@@ -204,4 +210,5 @@ const moreDetails = (data) => {
 const closeBtn = () => {
   getElem("details-section")[0].style.top = "-1000%";
   getElem("more-details")[0].textContent = "";
+  getElem("result-section")[0].style.opacity = "1";
 };
