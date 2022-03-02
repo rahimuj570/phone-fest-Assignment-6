@@ -144,7 +144,7 @@ const moreDetails = (data) => {
       <p class="mt-5 text-2xl text-red-500 text-center text-white text-semibold">
         No Data Found!
       </p>
-      <img class="sm:w-4/12 w-9/12 mx-auto" src="./404.png" alt="" />
+      <img class="sm:w-4/12 w-9/12 mx-auto" src="./img/404.png" alt="" />
     </div>
 
     </div>
