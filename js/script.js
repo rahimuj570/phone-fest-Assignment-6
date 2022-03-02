@@ -19,6 +19,7 @@ const ApiUrl = (isSearch, isId) => {
 
 // ========= Fetch API ======
 const fetchApi = (url) => {
+  getElem("loading")[0].style.display = "block";
   fetch(url)
     .then((res) => res.json())
     .then((data) => catchApi(data.data, data.status));
@@ -53,8 +54,8 @@ const catchApi = (data, status) => {
       mainDiv.appendChild(div);
     });
   }
+  getElem("loading")[0].style.display = "none";
 };
-
 // ApiUrl(null, null);
 
 // ======= Catch Api on Search =======
@@ -93,7 +94,7 @@ const moreDetails = (data) => {
   modalDiv.innerHTML = ` <div
   style="position: absolute; transition: 0.9s; top: -1000%; z-index: 2"
   id="details-section"
-  class="sm:mx-5 mx-3 bg-white p-2 rounded"
+  class="inset-x-0 shadow border-b-4 border-red-500 sm:mx-5 mx-3 bg-white p-2 rounded"
 >
   <div class="flex justify-center">
     <img width="320px" src="./404.png" alt="" />
